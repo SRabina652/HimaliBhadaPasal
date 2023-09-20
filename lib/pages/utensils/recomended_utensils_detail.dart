@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:himali_bhada_pasal/controller/recommended_product_controller.dart';
+import 'package:himali_bhada_pasal/route/route_helper.dart';
+import 'package:himali_bhada_pasal/utils/app_constants.dart';
 import 'package:himali_bhada_pasal/utils/colors.dart';
 import 'package:himali_bhada_pasal/widgets/icon/app_icon.dart';
 import 'package:himali_bhada_pasal/widgets/text_widgets/expandable_text_height.dart';
@@ -8,22 +12,32 @@ import 'package:himali_bhada_pasal/widgets/text_widgets/main_text.dart';
 import '../../utils/dimensions.dart';
 
 class RecomendedUtensilsDetails extends StatelessWidget {
-  const RecomendedUtensilsDetails({super.key});
+  int pageId;
+  RecomendedUtensilsDetails({super.key,required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product= Get.find<RecommendedProductController>().recommendedProductList[pageId];
+    // print("pageId: "+ pageId.toString());
+    // print("The product Description is: "+product.description);
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 80,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIconClass(
-                  icon: Icons.clear,
-                  backgroundColor: Colors.white,
+                GestureDetector(
+                  onTap:(){
+                    Get.toNamed(RouteHelper.getInitials());
+      },
+                  child: AppIconClass(
+                    icon: Icons.clear,
+                    backgroundColor: Colors.white,
+                  ),
                 ),
                 AppIconClass(
                   icon: Icons.shopping_cart_outlined,
@@ -36,7 +50,7 @@ class RecomendedUtensilsDetails extends StatelessWidget {
                 child: Container(
                   child: Center(
                       child: MainText(
-                    text: "Spoons And Other Utensils",
+                    text: product.name.toString(),
                     size: Dimensions.font23,
                   )),
                   width: double.maxFinite,
@@ -53,8 +67,8 @@ class RecomendedUtensilsDetails extends StatelessWidget {
             backgroundColor: Colors.white,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/image/five.jpg",
+              background: Image.network(
+               AppConstant.BASE_URL + AppConstant.UPLOAD_URI + product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -66,14 +80,7 @@ class RecomendedUtensilsDetails extends StatelessWidget {
               Container(
                 child: ExpandableText(
                     text:
-                        "Silver plating is a simple process of coating materials with silver, which is also known as electrolysis However, despite its easy-to-understand nature, there are a lot of other essential details you should know about silver plating. You need to understand how the process works, it’s benefits, and where it’s best used, so you’ll know how beneficial this widely used process of plating is for your business. The Definition of Silver PlatingSilver plating is a process in which other base metals are coated with a layer of silver. The process sounds simple, but it still needs to ensure that the base metal has an even layer of silver to gain that widely known and craved matte-white look."
-                        "When the process is performed over nickel silver, the result is usually called electroplated nickel silver."
-                        "Besides nickel silver, the process is commonly used on copper, steel, titanium, graphite, ceramic, plastic, and aluminum.The Benefits of Silver Plating"
-                        "Silver plating provides several benefits. Due to the strength of silver, this type of coating offers excellent corrosion resistance to the base material and the product as a whole."
-                        "Furthermore, silver plating provides great solderability for small parts like kitchen utensils, but it also offers little electrical resistance making it perfect for all products that require an excellent finish and conductivity. A silver finish is also good for the lubricity of the product. Unfortunately, products with a silver finish can still tarnish, but due to the reasonably low price, silver plating is a cheaper alternative to gold plating, which offers similar results."
-                        "All in all, silver coating is thus used for products that require:"
-                        "Depending on the type of usage of the coated material, the silver coating has a different level of thickness."
-                        "Electronics – bearings, semiconductors, connectors Power generators – like battery and solar"),
+                        product.description!),
                 margin: EdgeInsets.only(
                     right: Dimensions.width10, left: Dimensions.width15),
               ),
@@ -102,7 +109,7 @@ class RecomendedUtensilsDetails extends StatelessWidget {
                     iconColor: Colors.white,
                     iconSize: Dimensions.iconSize24,
                   ),
-                  MainText(text: "\$25.44 "+ " x " + " 3 "),
+                  MainText(text: "\$ ${product.price} "+ " x " + " 3 "),
                   AppIconClass(
                     icon: Icons.add,
                     backgroundColor: AppColors.mainColor,

@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:himali_bhada_pasal/controller/popular_product_controller.dart';
+import 'package:himali_bhada_pasal/route/route_helper.dart';
+import 'package:himali_bhada_pasal/utils/app_constants.dart';
 import 'package:himali_bhada_pasal/utils/dimensions.dart';
 import 'package:himali_bhada_pasal/widgets/column/app_column.dart';
 
@@ -9,12 +13,19 @@ import '../../widgets/text_and_icon/text_and_icon.dart';
 import '../../widgets/text_widgets/expandable_text_height.dart';
 import '../../widgets/text_widgets/main_text.dart';
 import '../../widgets/text_widgets/small_text.dart';
+import '../home/main_utensils_page.dart';
 
 class PopularUtensilsDetailsPage extends StatelessWidget {
-  const PopularUtensilsDetailsPage({super.key});
+  int pageId;
+  PopularUtensilsDetailsPage({super.key,required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+
+    var product= Get.find<PopularProductController>().popularProductList[pageId];
+    // print("the product id is: "+pageId.toString());
+    // print("the product name is: "+product.name.toString());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -28,8 +39,8 @@ class PopularUtensilsDetailsPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          "assets/image/eight.jpg",
+                        image: NetworkImage(
+                          AppConstant.BASE_URL+AppConstant.UPLOAD_URI + product.img!,
                         ))),
               )),
           Positioned(
@@ -39,7 +50,11 @@ class PopularUtensilsDetailsPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIconClass(icon: Icons.arrow_back),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.initial);
+                      },
+                      child: AppIconClass(icon: Icons.arrow_back)),
                   AppIconClass(icon: Icons.shopping_cart_outlined),
                 ],
               )),
@@ -63,7 +78,7 @@ class PopularUtensilsDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppColumn(
-                      text: "Spoons And Other Utensils",
+                      text: product.name.toString(),
                     ),
                     SizedBox(
                       height: Dimensions.height15,
@@ -72,20 +87,14 @@ class PopularUtensilsDetailsPage extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-                    Expanded(child: SingleChildScrollView(
-                      child: ExpandableText(
-                        text:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-                            " sed do eiusmod tempor incididunt ut labore et dolore magna "
-                            "aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
-                            "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute"
-                            " irure dolor in reprehenderit in voluptate velit esse cillum "
-                            "dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat"
-                            " non proident, sunt in culpa qui officia deserunt mollit anim id "
-                            "est laborum."
-                        ,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableText(
+                          text:
+                          product.description.toString(),
+                        ),
                       ),
-                    ),)
+                    )
                   ],
                 ),
               ))
@@ -140,7 +149,7 @@ class PopularUtensilsDetailsPage extends StatelessWidget {
                   bottom: Dimensions.height10 / 2,
                   top: Dimensions.height10 / 2),
               child: MainText(
-                text: "\$10 | add to cart",
+                text: "\$ ${product.price} | add to cart",
                 color: Colors.white,
               ),
               decoration: BoxDecoration(

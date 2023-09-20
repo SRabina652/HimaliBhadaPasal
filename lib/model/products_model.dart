@@ -10,7 +10,7 @@ class Product {
     this._totalSize=totalSize;
     this._typeId=typeId;
     this._products=products;
-  };
+  }
 
   Product.fromJson(Map<String, dynamic> json) {
     _totalSize = json['total_size'];
@@ -19,7 +19,7 @@ class Product {
     if (json['products'] != null) {
       _products = <ProductModel>[];
       json['products'].forEach((v) {
-        _products!.add(ProductModel.fromJson(v));
+        _products.add(ProductModel.fromJson(v));
       });
     }
   }

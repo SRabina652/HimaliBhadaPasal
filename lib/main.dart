@@ -4,6 +4,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:himali_bhada_pasal/controller/popular_product_controller.dart';
 import 'package:himali_bhada_pasal/controller/recommended_product_controller.dart';
+import 'package:himali_bhada_pasal/pages/cart/cart_page.dart';
 import 'package:himali_bhada_pasal/pages/home/main_utensils_page.dart';
 import 'package:himali_bhada_pasal/pages/home/utensils_page_body.dart';
 import 'package:himali_bhada_pasal/pages/utensils/popular_utensils_body.dart';
@@ -33,9 +34,11 @@ class MyApp extends StatelessWidget {
       //   useMaterial3: true,
       // ),
       // home: const PopularUtensilsDetailsPage(),
-      home: const MainUtensilsPage(),
-      initialRoute: RouteHelper.initial,
+      // home: const MainUtensilsPage(),
+      initialRoute: RouteHelper.getInitials(),
       getPages: RouteHelper.routes,
+
+      // home: CartPage(),
       // home: const RecomendedUtensilsDetails(),
 
 

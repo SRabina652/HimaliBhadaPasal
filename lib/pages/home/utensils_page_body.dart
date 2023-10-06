@@ -43,6 +43,7 @@ class _UtensilsPageBodyState extends State<UtensilsPageBody> {
   @override
   void dispose() {
     controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -115,7 +116,7 @@ class _UtensilsPageBodyState extends State<UtensilsPageBody> {
               itemBuilder: (context,item) {
                 return GestureDetector(
                   onTap: (){
-                    Get.toNamed(RouteHelper.getRecommendedUtensils(item));
+                    Get.toNamed(RouteHelper.getRecommendedUtensils(item,""));
                   },
                   child: Container(
                       margin: EdgeInsets.only(
@@ -228,7 +229,7 @@ class _UtensilsPageBodyState extends State<UtensilsPageBody> {
       child: Stack(children: [
         GestureDetector(
           onTap: (){
-            Get.toNamed(RouteHelper.getPopularUtensils(index));
+            Get.toNamed(RouteHelper.getPopularUtensils(index,""));
           },
           child: Container(
             height: Dimensions.pageViewContainer,

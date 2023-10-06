@@ -1,3 +1,5 @@
+import 'package:himali_bhada_pasal/model/products_model.dart';
+
 class CartModel {
   int? id;
   String? name;
@@ -6,6 +8,7 @@ class CartModel {
   String? img;
   bool? isExist;
   String? time;
+  ProductModel? productModel;
 
   CartModel({this.id,
     this.name,
@@ -13,7 +16,8 @@ class CartModel {
     this.img,
     this.quantity,
     this.time,
-    this.isExist
+    this.isExist,
+    this.productModel
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -24,5 +28,6 @@ class CartModel {
     quantity=json['quantity'];
     time=json['time'];
     isExist= json['isExist'];
+    productModel=ProductModel.fromJson(json['product']);
   }
 }

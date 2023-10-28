@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:himali_bhada_pasal/pages/cart/cart_page.dart';
 import 'package:himali_bhada_pasal/pages/home/main_utensils_page.dart';
+import 'package:himali_bhada_pasal/pages/splash/splash_screen.dart';
 import 'package:himali_bhada_pasal/pages/utensils/popular_utensils_body.dart';
 import 'package:himali_bhada_pasal/pages/utensils/recomended_utensils_detail.dart';
 
@@ -11,11 +12,13 @@ import '../pages/home/home_page.dart';
 
 class RouteHelper{
   static const String initial="/";
+  static const String splashPage="/splash-page";
   static const String popularPage="/popular-page";
   static const String recommendedPage="/recommended-page";
   static const String cartPage="/cart-page";
 
   static String getInitials()=>"$initial";
+  static String getSplashPage()=>"$splashPage";
   static String getPopularUtensils(int pageId,String page)=>"$popularPage?pageId=$pageId&page=$page";
   static String getRecommendedUtensils(int pageId,String page)=>"$recommendedPage?pageId=$pageId&page=$page";
   static String getCartPage()=>'$cartPage';
@@ -25,6 +28,12 @@ class RouteHelper{
     GetPage(name: initial, page:(){
       return HomePage();
   },
+      transition: Transition.fadeIn,
+    ),
+
+    GetPage(name: splashPage, page:(){
+      return SplashScreen();
+    },
       transition: Transition.fadeIn,
     ),
     //route for popular page

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:himali_bhada_pasal/pages/account/account_page.dart';
+import 'package:himali_bhada_pasal/pages/cart/cart_history.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../utils/colors.dart';
@@ -76,12 +78,8 @@ class _HomePageState extends State<HomePage> {
       Container(
         child: Center(child: Text("Second page")),
       ),
-      Container(
-        child: Text("Third page"),
-      ),
-      Container(
-        child: Text("Fourth page"),
-      ),
+      CartHistory(),
+      AccountPage(),
     ];
   }
 
